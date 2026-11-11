@@ -41,9 +41,9 @@ Novelty (always worded "to our knowledge"): a free, open-source, UAV-component-s
 - [x] Phase 1 data + validator
 - [x] Phase 2 engine + tests
 - [x] Phase 3 API + tests
-- [ ] Phase 4 frontend selector + results
-- [ ] Phase 5 Ashby chart, compare view, methodology page
-- [ ] Phase 6 exports (CSV, PDF)
+- [x] Phase 4 frontend selector + results
+- [x] Phase 5 Ashby chart, compare view, methodology page
+- [x] Phase 6 exports (CSV, PDF)
 - [ ] Phase 7 docs + validation report
 - [ ] Phase 8 polish, accessibility, Dockerfile, smoke script
 - [ ] Phase 9 requirement parser + Pareto view
