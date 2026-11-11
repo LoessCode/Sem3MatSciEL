@@ -1,0 +1,766 @@
+{
+ "schema_version": 1,
+ "disclaimer": "All values are typical figures from general engineering knowledge, given as min-max ranges to reflect grade, process and supplier variation. Every record is flagged 'typical-value-needs-verification' and must be spot-checked against supplier datasheets or a handbook before the results are relied on.",
+ "units": {"density_kg_m3": "kg/m3", "youngs_modulus_GPa": "GPa", "tensile_strength_MPa": "MPa", "max_service_temp_C": "deg C", "cost_usd_per_kg": "USD/kg", "embodied_energy_MJ_per_kg": "MJ/kg", "impact_resistance": "score 1 (poor) to 5 (excellent)", "recyclability": "score 1 (poor) to 5 (excellent)"},
+ "materials": [
+ {
+  "id": "pla", "name": "PLA", "family": "printable-polymer",
+  "processes": ["fdm", "injection"],
+  "notes": "Easy to print and stiff for a polymer, but brittle and softens near 55 C; poor in a hot, crash-prone airframe.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1200, "max": 1270},
+   "youngs_modulus_GPa": {"min": 2.3, "max": 3.5},
+   "tensile_strength_MPa": {"min": 40, "max": 60},
+   "max_service_temp_C": {"min": 50, "max": 60},
+   "cost_usd_per_kg": {"min": 15, "max": 30},
+   "embodied_energy_MJ_per_kg": {"min": 40, "max": 60}
+  },
+  "scores": {"impact_resistance": 1, "recyclability": 2}
+ },
+ {
+  "id": "pla-plus", "name": "PLA+ (toughened PLA)", "family": "printable-polymer",
+  "processes": ["fdm", "injection"],
+  "notes": "PLA with impact modifiers: a little tougher than plain PLA but still limited by low temperature capability.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1210, "max": 1270},
+   "youngs_modulus_GPa": {"min": 2.0, "max": 3.0},
+   "tensile_strength_MPa": {"min": 45, "max": 65},
+   "max_service_temp_C": {"min": 55, "max": 60},
+   "cost_usd_per_kg": {"min": 18, "max": 35},
+   "embodied_energy_MJ_per_kg": {"min": 45, "max": 65}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 2}
+ },
+ {
+  "id": "petg", "name": "PETG", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "sheet-forming"],
+  "notes": "Tougher and more heat tolerant than PLA; a common all-round printing material.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1260, "max": 1290},
+   "youngs_modulus_GPa": {"min": 1.8, "max": 2.5},
+   "tensile_strength_MPa": {"min": 40, "max": 55},
+   "max_service_temp_C": {"min": 65, "max": 75},
+   "cost_usd_per_kg": {"min": 18, "max": 32},
+   "embodied_energy_MJ_per_kg": {"min": 75, "max": 95}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 3}
+ },
+ {
+  "id": "abs", "name": "ABS", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "machining", "sheet-forming"],
+  "notes": "Light and reasonably tough with good heat tolerance; prone to warping when printed.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1030, "max": 1070},
+   "youngs_modulus_GPa": {"min": 1.6, "max": 2.4},
+   "tensile_strength_MPa": {"min": 30, "max": 45},
+   "max_service_temp_C": {"min": 85, "max": 100},
+   "cost_usd_per_kg": {"min": 18, "max": 30},
+   "embodied_energy_MJ_per_kg": {"min": 90, "max": 110}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 3}
+ },
+ {
+  "id": "asa", "name": "ASA", "family": "printable-polymer",
+  "processes": ["fdm", "injection"],
+  "notes": "Like ABS but resists sunlight and weather better, useful for outdoor airframes.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1050, "max": 1090},
+   "youngs_modulus_GPa": {"min": 1.8, "max": 2.4},
+   "tensile_strength_MPa": {"min": 30, "max": 45},
+   "max_service_temp_C": {"min": 85, "max": 95},
+   "cost_usd_per_kg": {"min": 22, "max": 40},
+   "embodied_energy_MJ_per_kg": {"min": 95, "max": 115}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 3}
+ },
+ {
+  "id": "pa12", "name": "Nylon PA12", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "machining"],
+  "notes": "Tough, fatigue-resistant and low-friction; absorbs little moisture compared with other nylons.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1010, "max": 1040},
+   "youngs_modulus_GPa": {"min": 1.3, "max": 2.0},
+   "tensile_strength_MPa": {"min": 35, "max": 50},
+   "max_service_temp_C": {"min": 90, "max": 120},
+   "cost_usd_per_kg": {"min": 40, "max": 90},
+   "embodied_energy_MJ_per_kg": {"min": 100, "max": 130}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 3}
+ },
+ {
+  "id": "pa6", "name": "Nylon PA6", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "machining"],
+  "notes": "Strong and tough but absorbs moisture, which lowers stiffness in humid air.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1130, "max": 1150},
+   "youngs_modulus_GPa": {"min": 1.5, "max": 2.5},
+   "tensile_strength_MPa": {"min": 40, "max": 70},
+   "max_service_temp_C": {"min": 100, "max": 120},
+   "cost_usd_per_kg": {"min": 35, "max": 70},
+   "embodied_energy_MJ_per_kg": {"min": 110, "max": 130}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 3}
+ },
+ {
+  "id": "tpu", "name": "TPU 95A (flexible)", "family": "printable-polymer",
+  "processes": ["fdm"],
+  "notes": "Rubber-like and extremely impact tolerant, but far too floppy for load-carrying structure; useful for bumpers and mounts.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1100, "max": 1230},
+   "youngs_modulus_GPa": {"min": 0.02, "max": 0.1},
+   "tensile_strength_MPa": {"min": 25, "max": 45},
+   "max_service_temp_C": {"min": 80, "max": 100},
+   "cost_usd_per_kg": {"min": 25, "max": 45},
+   "embodied_energy_MJ_per_kg": {"min": 90, "max": 110}
+  },
+  "scores": {"impact_resistance": 5, "recyclability": 2}
+ },
+ {
+  "id": "pc", "name": "Polycarbonate (PC)", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "machining", "sheet-forming"],
+  "notes": "Very tough and heat tolerant; harder to print and needs a hot, enclosed printer.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1190, "max": 1210},
+   "youngs_modulus_GPa": {"min": 2.0, "max": 2.5},
+   "tensile_strength_MPa": {"min": 55, "max": 70},
+   "max_service_temp_C": {"min": 110, "max": 130},
+   "cost_usd_per_kg": {"min": 35, "max": 60},
+   "embodied_energy_MJ_per_kg": {"min": 100, "max": 120}
+  },
+  "scores": {"impact_resistance": 5, "recyclability": 3}
+ },
+ {
+  "id": "pc-abs", "name": "PC-ABS blend", "family": "printable-polymer",
+  "processes": ["fdm", "injection"],
+  "notes": "Blend of polycarbonate and ABS: tougher than ABS, easier to print than pure PC.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1100, "max": 1150},
+   "youngs_modulus_GPa": {"min": 1.9, "max": 2.4},
+   "tensile_strength_MPa": {"min": 40, "max": 55},
+   "max_service_temp_C": {"min": 95, "max": 110},
+   "cost_usd_per_kg": {"min": 30, "max": 55},
+   "embodied_energy_MJ_per_kg": {"min": 95, "max": 115}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 2}
+ },
+ {
+  "id": "pp", "name": "Polypropylene (PP)", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "sheet-forming"],
+  "notes": "Very light and chemically resistant but soft and difficult to bond or print well.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 890, "max": 920},
+   "youngs_modulus_GPa": {"min": 0.8, "max": 1.4},
+   "tensile_strength_MPa": {"min": 20, "max": 32},
+   "max_service_temp_C": {"min": 90, "max": 110},
+   "cost_usd_per_kg": {"min": 25, "max": 45},
+   "embodied_energy_MJ_per_kg": {"min": 70, "max": 85}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 4}
+ },
+ {
+  "id": "peek", "name": "PEEK", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "machining"],
+  "notes": "Excellent heat and chemical resistance and good strength, but very expensive and needs specialist printers.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1290, "max": 1320},
+   "youngs_modulus_GPa": {"min": 3.5, "max": 4.0},
+   "tensile_strength_MPa": {"min": 80, "max": 100},
+   "max_service_temp_C": {"min": 240, "max": 260},
+   "cost_usd_per_kg": {"min": 350, "max": 800},
+   "embodied_energy_MJ_per_kg": {"min": 230, "max": 300}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 3}
+ },
+ {
+  "id": "pei", "name": "PEI (ULTEM-type)", "family": "printable-polymer",
+  "processes": ["fdm", "injection", "machining"],
+  "notes": "High-temperature, flame-retardant engineering polymer; costly and needs specialist printers.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, typical FDM settings; cost is filament/stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1270, "max": 1290},
+   "youngs_modulus_GPa": {"min": 3.0, "max": 3.6},
+   "tensile_strength_MPa": {"min": 70, "max": 90},
+   "max_service_temp_C": {"min": 160, "max": 170},
+   "cost_usd_per_kg": {"min": 150, "max": 350},
+   "embodied_energy_MJ_per_kg": {"min": 130, "max": 170}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 2}
+ },
+ {
+  "id": "pla-cf", "name": "PLA-CF (carbon-filled PLA)", "family": "printable-composite",
+  "processes": ["fdm", "injection"],
+  "notes": "PLA with chopped carbon fibre: much stiffer than plain PLA but brittle and still limited by temperature.",
+  "property_basis": "Short-fibre-filled filament printed in XY (in-plane) orientation; fibre fraction typical of commercial filaments; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1260, "max": 1330},
+   "youngs_modulus_GPa": {"min": 4.5, "max": 8.0},
+   "tensile_strength_MPa": {"min": 40, "max": 65},
+   "max_service_temp_C": {"min": 55, "max": 65},
+   "cost_usd_per_kg": {"min": 30, "max": 60},
+   "embodied_energy_MJ_per_kg": {"min": 70, "max": 100}
+  },
+  "scores": {"impact_resistance": 1, "recyclability": 1}
+ },
+ {
+  "id": "petg-cf", "name": "PETG-CF", "family": "printable-composite",
+  "processes": ["fdm", "injection"],
+  "notes": "PETG with chopped carbon fibre: stiffer and easier to print than nylon composites.",
+  "property_basis": "Short-fibre-filled filament printed in XY (in-plane) orientation; fibre fraction typical of commercial filaments; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1300, "max": 1380},
+   "youngs_modulus_GPa": {"min": 3.5, "max": 6.0},
+   "tensile_strength_MPa": {"min": 45, "max": 70},
+   "max_service_temp_C": {"min": 70, "max": 80},
+   "cost_usd_per_kg": {"min": 35, "max": 65},
+   "embodied_energy_MJ_per_kg": {"min": 100, "max": 130}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 1}
+ },
+ {
+  "id": "abs-cf", "name": "ABS-CF", "family": "printable-composite",
+  "processes": ["fdm", "injection"],
+  "notes": "ABS with chopped carbon fibre: light, stiff and heat tolerant but still warps when printed.",
+  "property_basis": "Short-fibre-filled filament printed in XY (in-plane) orientation; fibre fraction typical of commercial filaments; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1080, "max": 1150},
+   "youngs_modulus_GPa": {"min": 3.0, "max": 6.0},
+   "tensile_strength_MPa": {"min": 40, "max": 60},
+   "max_service_temp_C": {"min": 90, "max": 100},
+   "cost_usd_per_kg": {"min": 35, "max": 60},
+   "embodied_energy_MJ_per_kg": {"min": 120, "max": 150}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 1}
+ },
+ {
+  "id": "pa-cf", "name": "PA-CF (carbon-filled nylon)", "family": "printable-composite",
+  "processes": ["fdm", "injection"],
+  "notes": "Nylon with chopped carbon fibre: a popular strong, light and heat-resistant printed structural choice.",
+  "property_basis": "Short-fibre-filled filament printed in XY (in-plane) orientation; fibre fraction typical of commercial filaments; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1050, "max": 1200},
+   "youngs_modulus_GPa": {"min": 4.0, "max": 9.0},
+   "tensile_strength_MPa": {"min": 55, "max": 100},
+   "max_service_temp_C": {"min": 110, "max": 150},
+   "cost_usd_per_kg": {"min": 70, "max": 150},
+   "embodied_energy_MJ_per_kg": {"min": 140, "max": 180}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 1}
+ },
+ {
+  "id": "pa-gf", "name": "PA-GF (glass-filled nylon)", "family": "printable-composite",
+  "processes": ["fdm", "injection"],
+  "notes": "Nylon with glass fibre: cheaper than carbon-filled nylon, slightly heavier and less stiff.",
+  "property_basis": "Short-fibre-filled filament printed in XY (in-plane) orientation; fibre fraction typical of commercial filaments; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1180, "max": 1330},
+   "youngs_modulus_GPa": {"min": 3.0, "max": 6.0},
+   "tensile_strength_MPa": {"min": 50, "max": 85},
+   "max_service_temp_C": {"min": 110, "max": 150},
+   "cost_usd_per_kg": {"min": 55, "max": 120},
+   "embodied_energy_MJ_per_kg": {"min": 110, "max": 140}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 1}
+ },
+ {
+  "id": "pc-cf", "name": "PC-CF (carbon-filled polycarbonate)", "family": "printable-composite",
+  "processes": ["fdm", "injection"],
+  "notes": "Carbon-filled polycarbonate: stiff and heat tolerant; needs a hot enclosed printer.",
+  "property_basis": "Short-fibre-filled filament printed in XY (in-plane) orientation; fibre fraction typical of commercial filaments; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1230, "max": 1300},
+   "youngs_modulus_GPa": {"min": 5.0, "max": 9.0},
+   "tensile_strength_MPa": {"min": 60, "max": 95},
+   "max_service_temp_C": {"min": 120, "max": 140},
+   "cost_usd_per_kg": {"min": 90, "max": 160},
+   "embodied_energy_MJ_per_kg": {"min": 140, "max": 170}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 1}
+ },
+ {
+  "id": "peek-cf", "name": "PEEK-CF", "family": "printable-composite",
+  "processes": ["fdm", "injection"],
+  "notes": "Top-end printable composite for heat and strength, at very high cost and with specialist equipment.",
+  "property_basis": "Short-fibre-filled filament printed in XY (in-plane) orientation; fibre fraction typical of commercial filaments; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1380, "max": 1440},
+   "youngs_modulus_GPa": {"min": 8.0, "max": 15.0},
+   "tensile_strength_MPa": {"min": 100, "max": 140},
+   "max_service_temp_C": {"min": 240, "max": 260},
+   "cost_usd_per_kg": {"min": 500, "max": 1000},
+   "embodied_energy_MJ_per_kg": {"min": 270, "max": 350}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 1}
+ },
+ {
+  "id": "cfrp-qi", "name": "Carbon/epoxy (quasi-isotropic laminate)", "family": "fibre-composite",
+  "processes": ["layup", "cnc-cut"],
+  "notes": "Benchmark for light, stiff structure; expensive, energy intensive and hard to recycle.",
+  "property_basis": "Laminate at roughly 50% fibre volume, in-plane properties of a quasi-isotropic or balanced woven layup (not unidirectional); cost is raw laminate material per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1500, "max": 1600},
+   "youngs_modulus_GPa": {"min": 45, "max": 60},
+   "tensile_strength_MPa": {"min": 450, "max": 700},
+   "max_service_temp_C": {"min": 90, "max": 130},
+   "cost_usd_per_kg": {"min": 80, "max": 300},
+   "embodied_energy_MJ_per_kg": {"min": 200, "max": 380}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 1}
+ },
+ {
+  "id": "cfrp-woven", "name": "Carbon/epoxy (woven 0/90 laminate)", "family": "fibre-composite",
+  "processes": ["layup", "cnc-cut"],
+  "notes": "Carbon fabric laminate loaded along its fibre directions; slightly stiffer than quasi-isotropic in those directions.",
+  "property_basis": "Laminate at roughly 50% fibre volume, in-plane properties of a quasi-isotropic or balanced woven layup (not unidirectional); cost is raw laminate material per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1450, "max": 1600},
+   "youngs_modulus_GPa": {"min": 52, "max": 65},
+   "tensile_strength_MPa": {"min": 500, "max": 750},
+   "max_service_temp_C": {"min": 90, "max": 130},
+   "cost_usd_per_kg": {"min": 70, "max": 250},
+   "embodied_energy_MJ_per_kg": {"min": 200, "max": 380}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 1}
+ },
+ {
+  "id": "gfrp-woven", "name": "Glass/epoxy (woven laminate)", "family": "fibre-composite",
+  "processes": ["layup", "cnc-cut"],
+  "notes": "Cheaper and tougher than carbon but heavier and less stiff; a common budget composite.",
+  "property_basis": "Laminate at roughly 50% fibre volume, in-plane properties of a quasi-isotropic or balanced woven layup (not unidirectional); cost is raw laminate material per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1800, "max": 2000},
+   "youngs_modulus_GPa": {"min": 18, "max": 28},
+   "tensile_strength_MPa": {"min": 250, "max": 450},
+   "max_service_temp_C": {"min": 90, "max": 130},
+   "cost_usd_per_kg": {"min": 8, "max": 25},
+   "embodied_energy_MJ_per_kg": {"min": 30, "max": 60}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 1}
+ },
+ {
+  "id": "afrp-woven", "name": "Aramid/epoxy (woven laminate)", "family": "fibre-composite",
+  "processes": ["layup", "cnc-cut"],
+  "notes": "Aramid (Kevlar-type) fibres absorb impact very well; weaker in compression and hard to cut.",
+  "property_basis": "Laminate at roughly 50% fibre volume, in-plane properties of a quasi-isotropic or balanced woven layup (not unidirectional); cost is raw laminate material per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1300, "max": 1400},
+   "youngs_modulus_GPa": {"min": 25, "max": 35},
+   "tensile_strength_MPa": {"min": 350, "max": 550},
+   "max_service_temp_C": {"min": 90, "max": 120},
+   "cost_usd_per_kg": {"min": 60, "max": 160},
+   "embodied_energy_MJ_per_kg": {"min": 130, "max": 230}
+  },
+  "scores": {"impact_resistance": 5, "recyclability": 1}
+ },
+ {
+  "id": "bfrp-woven", "name": "Basalt/epoxy (woven laminate)", "family": "fibre-composite",
+  "processes": ["layup", "cnc-cut"],
+  "notes": "Volcanic-rock fibre composite, between glass and carbon in stiffness at a modest price.",
+  "property_basis": "Laminate at roughly 50% fibre volume, in-plane properties of a quasi-isotropic or balanced woven layup (not unidirectional); cost is raw laminate material per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1900, "max": 2100},
+   "youngs_modulus_GPa": {"min": 20, "max": 32},
+   "tensile_strength_MPa": {"min": 300, "max": 500},
+   "max_service_temp_C": {"min": 100, "max": 140},
+   "cost_usd_per_kg": {"min": 10, "max": 30},
+   "embodied_energy_MJ_per_kg": {"min": 30, "max": 70}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 1}
+ },
+ {
+  "id": "flax-epoxy", "name": "Flax/epoxy (woven laminate)", "family": "fibre-composite",
+  "processes": ["layup", "cnc-cut"],
+  "caveat": "Moisture uptake and batch variation of natural fibres are not modelled.",
+  "notes": "Plant-fibre composite with good vibration damping and a lower fibre footprint; limited strength and moisture sensitive.",
+  "property_basis": "Laminate at roughly 50% fibre volume, in-plane properties of a quasi-isotropic or balanced woven layup (not unidirectional); cost is raw laminate material per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1250, "max": 1400},
+   "youngs_modulus_GPa": {"min": 10, "max": 20},
+   "tensile_strength_MPa": {"min": 80, "max": 200},
+   "max_service_temp_C": {"min": 70, "max": 100},
+   "cost_usd_per_kg": {"min": 8, "max": 25},
+   "embodied_energy_MJ_per_kg": {"min": 55, "max": 100}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 1}
+ },
+ {
+  "id": "hemp-pla", "name": "Hemp-PLA (moulded biocomposite)", "family": "fibre-composite",
+  "processes": ["injection", "sheet-forming"],
+  "caveat": "Moisture uptake and low heat tolerance are not modelled beyond the temperature figure; fibre content varies by supplier.",
+  "notes": "Bio-based composite of hemp fibre in PLA, hot-pressed or moulded; eco-friendly but low heat tolerance.",
+  "property_basis": "Compression-moulded or injection-moulded sheet with roughly 30% hemp fibre, in-plane values (random mat); not a printed filament.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1250, "max": 1350},
+   "youngs_modulus_GPa": {"min": 4.0, "max": 9.0},
+   "tensile_strength_MPa": {"min": 40, "max": 90},
+   "max_service_temp_C": {"min": 50, "max": 60},
+   "cost_usd_per_kg": {"min": 10, "max": 30},
+   "embodied_energy_MJ_per_kg": {"min": 35, "max": 60}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 3}
+ },
+ {
+  "id": "al6061", "name": "Aluminium 6061-T6", "family": "metal",
+  "processes": ["machining", "cnc-cut", "sheet-forming"],
+  "notes": "Everyday aerospace aluminium: easy to machine, weld and recycle; the usual metal baseline.",
+  "property_basis": "Wrought material, isotropic, in the temper named; cost is stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 2690, "max": 2720},
+   "youngs_modulus_GPa": {"min": 68, "max": 71},
+   "tensile_strength_MPa": {"min": 290, "max": 320},
+   "max_service_temp_C": {"min": 120, "max": 160},
+   "cost_usd_per_kg": {"min": 4, "max": 12},
+   "embodied_energy_MJ_per_kg": {"min": 140, "max": 220}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 5}
+ },
+ {
+  "id": "al7075", "name": "Aluminium 7075-T6", "family": "metal",
+  "processes": ["machining", "cnc-cut"],
+  "notes": "High-strength aluminium for highly loaded parts; less corrosion resistant and loses strength with heat.",
+  "property_basis": "Wrought material, isotropic, in the temper named; cost is stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 2780, "max": 2820},
+   "youngs_modulus_GPa": {"min": 70, "max": 73},
+   "tensile_strength_MPa": {"min": 520, "max": 580},
+   "max_service_temp_C": {"min": 100, "max": 130},
+   "cost_usd_per_kg": {"min": 6, "max": 18},
+   "embodied_energy_MJ_per_kg": {"min": 150, "max": 230}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 5}
+ },
+ {
+  "id": "al5052", "name": "Aluminium 5052-H32 (sheet)", "family": "metal",
+  "processes": ["machining", "cnc-cut", "sheet-forming"],
+  "notes": "Formable sheet aluminium that bends easily for brackets and skins; lower strength than 6061.",
+  "property_basis": "Wrought material, isotropic, in the temper named; cost is stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 2660, "max": 2690},
+   "youngs_modulus_GPa": {"min": 69, "max": 71},
+   "tensile_strength_MPa": {"min": 210, "max": 250},
+   "max_service_temp_C": {"min": 100, "max": 150},
+   "cost_usd_per_kg": {"min": 4, "max": 9},
+   "embodied_energy_MJ_per_kg": {"min": 140, "max": 210}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 5}
+ },
+ {
+  "id": "ti64", "name": "Titanium Ti-6Al-4V", "family": "metal",
+  "processes": ["machining", "cnc-cut"],
+  "notes": "Very strong and corrosion resistant but expensive and costly to machine and produce.",
+  "property_basis": "Wrought material, isotropic, in the temper named; cost is stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 4420, "max": 4450},
+   "youngs_modulus_GPa": {"min": 110, "max": 118},
+   "tensile_strength_MPa": {"min": 900, "max": 1100},
+   "max_service_temp_C": {"min": 300, "max": 400},
+   "cost_usd_per_kg": {"min": 50, "max": 200},
+   "embodied_energy_MJ_per_kg": {"min": 550, "max": 900}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 4}
+ },
+ {
+  "id": "mg-az31", "name": "Magnesium AZ31", "family": "metal",
+  "processes": ["machining", "cnc-cut", "sheet-forming"],
+  "notes": "The lightest structural metal; flammable as chips, corrodes easily and needs coating.",
+  "property_basis": "Wrought material, isotropic, in the temper named; cost is stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1770, "max": 1790},
+   "youngs_modulus_GPa": {"min": 44, "max": 45},
+   "tensile_strength_MPa": {"min": 240, "max": 290},
+   "max_service_temp_C": {"min": 100, "max": 150},
+   "cost_usd_per_kg": {"min": 5, "max": 15},
+   "embodied_energy_MJ_per_kg": {"min": 250, "max": 380}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 4}
+ },
+ {
+  "id": "ss304", "name": "Stainless steel 304", "family": "metal",
+  "processes": ["machining", "cnc-cut", "sheet-forming"],
+  "notes": "Tough, corrosion-proof and cheap, but very dense; mostly used for fasteners and small fittings.",
+  "property_basis": "Wrought material, isotropic, in the temper named; cost is stock price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 7900, "max": 8000},
+   "youngs_modulus_GPa": {"min": 190, "max": 200},
+   "tensile_strength_MPa": {"min": 500, "max": 700},
+   "max_service_temp_C": {"min": 600, "max": 870},
+   "cost_usd_per_kg": {"min": 3, "max": 8},
+   "embodied_energy_MJ_per_kg": {"min": 60, "max": 100}
+  },
+  "scores": {"impact_resistance": 5, "recyclability": 5}
+ },
+ {
+  "id": "balsa", "name": "Balsa wood", "family": "natural-core",
+  "processes": ["cnc-cut", "machining"],
+  "caveat": "Moisture uptake, grain direction and density variation between sheets are not modelled; wood needs sealing and careful joints.",
+  "notes": "Classic ultra-light hobby aircraft wood: great stiffness for its weight but crushes easily and absorbs moisture.",
+  "property_basis": "Along-grain values for grades from about 100 to 200 kg/m3; strong grain-direction dependence.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 100, "max": 200},
+   "youngs_modulus_GPa": {"min": 2.0, "max": 5.0},
+   "tensile_strength_MPa": {"min": 8, "max": 22},
+   "max_service_temp_C": {"min": 70, "max": 100},
+   "cost_usd_per_kg": {"min": 15, "max": 50},
+   "embodied_energy_MJ_per_kg": {"min": 4, "max": 12}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 4}
+ },
+ {
+  "id": "plywood", "name": "Birch plywood (aircraft/hobby grade)", "family": "natural-core",
+  "processes": ["cnc-cut", "machining"],
+  "caveat": "Moisture uptake, grain direction and glue quality are not modelled; values apply along the face grain only.",
+  "notes": "Cheap, easy to cut and glue; much heavier than balsa but far tougher.",
+  "property_basis": "Typical values along the stronger in-plane/grain direction for the density grade stated; foams use compressive modulus as the stiffness figure.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 600, "max": 720},
+   "youngs_modulus_GPa": {"min": 8, "max": 13},
+   "tensile_strength_MPa": {"min": 30, "max": 60},
+   "max_service_temp_C": {"min": 70, "max": 100},
+   "cost_usd_per_kg": {"min": 3, "max": 12},
+   "embodied_energy_MJ_per_kg": {"min": 8, "max": 18}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 3}
+ },
+ {
+  "id": "bamboo", "name": "Bamboo laminate", "family": "natural-core",
+  "processes": ["cnc-cut", "machining"],
+  "caveat": "Moisture uptake, grain direction and adhesive quality are not modelled; values apply along the fibre direction only.",
+  "notes": "Fast-growing renewable material with high strength for a natural product; moisture sensitive.",
+  "property_basis": "Typical values along the stronger in-plane/grain direction for the density grade stated; foams use compressive modulus as the stiffness figure.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 600, "max": 750},
+   "youngs_modulus_GPa": {"min": 9, "max": 16},
+   "tensile_strength_MPa": {"min": 60, "max": 130},
+   "max_service_temp_C": {"min": 70, "max": 100},
+   "cost_usd_per_kg": {"min": 3, "max": 10},
+   "embodied_energy_MJ_per_kg": {"min": 4, "max": 14}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 4}
+ },
+ {
+  "id": "cork", "name": "Agglomerated cork sheet", "family": "natural-core",
+  "processes": ["cnc-cut"],
+  "caveat": "Very soft: usable as a damping or padding layer, not as primary structure.",
+  "notes": "Soft, light and good at absorbing vibration and impact; offers almost no structural stiffness.",
+  "property_basis": "Typical values along the stronger in-plane/grain direction for the density grade stated; foams use compressive modulus as the stiffness figure.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 120, "max": 250},
+   "youngs_modulus_GPa": {"min": 0.01, "max": 0.05},
+   "tensile_strength_MPa": {"min": 0.5, "max": 2.0},
+   "max_service_temp_C": {"min": 100, "max": 120},
+   "cost_usd_per_kg": {"min": 5, "max": 15},
+   "embodied_energy_MJ_per_kg": {"min": 4, "max": 16}
+  },
+  "scores": {"impact_resistance": 4, "recyclability": 4}
+ },
+ {
+  "id": "epp", "name": "EPP foam", "family": "natural-core",
+  "processes": ["injection", "cnc-cut"],
+  "notes": "Springy foam that survives crashes by bouncing back; the standard for hand-launched and combat foam aircraft.",
+  "property_basis": "Bulk foam; compressive modulus used as stiffness; strength is the typical tensile or compressive figure.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 20, "max": 60},
+   "youngs_modulus_GPa": {"min": 0.004, "max": 0.015},
+   "tensile_strength_MPa": {"min": 0.2, "max": 0.8},
+   "max_service_temp_C": {"min": 90, "max": 110},
+   "cost_usd_per_kg": {"min": 4, "max": 12},
+   "embodied_energy_MJ_per_kg": {"min": 75, "max": 100}
+  },
+  "scores": {"impact_resistance": 5, "recyclability": 3}
+ },
+ {
+  "id": "eps", "name": "EPS foam", "family": "natural-core",
+  "processes": ["injection", "cnc-cut"],
+  "notes": "Very light and cheap but crumbles on impact; often used as a skin-covered wing core.",
+  "property_basis": "Bulk foam; compressive modulus used as stiffness; strength is the typical tensile or compressive figure.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 12, "max": 35},
+   "youngs_modulus_GPa": {"min": 0.003, "max": 0.012},
+   "tensile_strength_MPa": {"min": 0.1, "max": 0.4},
+   "max_service_temp_C": {"min": 70, "max": 80},
+   "cost_usd_per_kg": {"min": 2, "max": 8},
+   "embodied_energy_MJ_per_kg": {"min": 80, "max": 100}
+  },
+  "scores": {"impact_resistance": 1, "recyclability": 2}
+ },
+ {
+  "id": "xps", "name": "XPS foam board", "family": "natural-core",
+  "processes": ["cnc-cut"],
+  "notes": "Smooth, rigid foam board popular for cheap foam-board aircraft; dents and cracks easily.",
+  "property_basis": "Bulk foam; compressive modulus used as stiffness; strength is the typical tensile or compressive figure.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 28, "max": 45},
+   "youngs_modulus_GPa": {"min": 0.01, "max": 0.025},
+   "tensile_strength_MPa": {"min": 0.2, "max": 0.6},
+   "max_service_temp_C": {"min": 70, "max": 75},
+   "cost_usd_per_kg": {"min": 3, "max": 8},
+   "embodied_energy_MJ_per_kg": {"min": 80, "max": 105}
+  },
+  "scores": {"impact_resistance": 1, "recyclability": 2}
+ },
+ {
+  "id": "pet-foam", "name": "PET structural foam core", "family": "natural-core",
+  "processes": ["cnc-cut", "layup"],
+  "notes": "Closed-cell foam used as the core between composite skins; recyclable thermoplastic.",
+  "property_basis": "Bulk core foam; compressive modulus used as stiffness; only meaningful as a sandwich core.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 60, "max": 130},
+   "youngs_modulus_GPa": {"min": 0.04, "max": 0.12},
+   "tensile_strength_MPa": {"min": 1.0, "max": 3.0},
+   "max_service_temp_C": {"min": 100, "max": 130},
+   "cost_usd_per_kg": {"min": 10, "max": 25},
+   "embodied_energy_MJ_per_kg": {"min": 70, "max": 100}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 3}
+ },
+ {
+  "id": "al-honeycomb", "name": "Aluminium honeycomb core", "family": "natural-core",
+  "processes": ["layup", "cnc-cut"],
+  "notes": "Hexagonal-cell aluminium core for stiff, light sandwich panels; costly and only useful bonded between skins.",
+  "property_basis": "Effective out-of-plane (through-thickness) compressive properties of the core; only meaningful as a sandwich core.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 30, "max": 100},
+   "youngs_modulus_GPa": {"min": 0.2, "max": 1.0},
+   "tensile_strength_MPa": {"min": 1.5, "max": 5.0},
+   "max_service_temp_C": {"min": 120, "max": 175},
+   "cost_usd_per_kg": {"min": 40, "max": 120},
+   "embodied_energy_MJ_per_kg": {"min": 150, "max": 230}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 4}
+ },
+ {
+  "id": "aerogel-panel", "name": "Aerogel-core panel", "family": "natural-core",
+  "processes": ["layup", "cnc-cut"],
+  "caveat": "Values are very uncertain; the panel is mainly a thermal barrier and is mechanically fragile.",
+  "notes": "Thermally insulating panel with a silica-aerogel core; excellent for heat shielding but mechanically weak. Values are very uncertain.",
+  "property_basis": "Effective panel properties for an aerogel-blanket-cored sandwich; wide ranges reflect high uncertainty.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 100, "max": 250},
+   "youngs_modulus_GPa": {"min": 0.005, "max": 0.05},
+   "tensile_strength_MPa": {"min": 0.1, "max": 1.0},
+   "max_service_temp_C": {"min": 150, "max": 400},
+   "cost_usd_per_kg": {"min": 100, "max": 400},
+   "embodied_energy_MJ_per_kg": {"min": 100, "max": 350}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 1}
+ },
+ {
+  "id": "rpet", "name": "Recycled PET (rPET)", "family": "recycled",
+  "processes": ["fdm", "injection"],
+  "notes": "Printing filament made from used bottles or packaging; similar to PETG with a lower embodied-energy footprint.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, recycled-content filament; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1260, "max": 1370},
+   "youngs_modulus_GPa": {"min": 1.8, "max": 2.8},
+   "tensile_strength_MPa": {"min": 35, "max": 55},
+   "max_service_temp_C": {"min": 60, "max": 75},
+   "cost_usd_per_kg": {"min": 15, "max": 30},
+   "embodied_energy_MJ_per_kg": {"min": 25, "max": 55}
+  },
+  "scores": {"impact_resistance": 2, "recyclability": 4}
+ },
+ {
+  "id": "rpa", "name": "Recycled nylon (rPA)", "family": "recycled",
+  "processes": ["fdm", "injection"],
+  "notes": "Nylon filament made from reclaimed material such as used fishing nets; properties vary by batch.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, recycled-content filament; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1110, "max": 1160},
+   "youngs_modulus_GPa": {"min": 1.2, "max": 2.4},
+   "tensile_strength_MPa": {"min": 35, "max": 60},
+   "max_service_temp_C": {"min": 90, "max": 115},
+   "cost_usd_per_kg": {"min": 30, "max": 70},
+   "embodied_energy_MJ_per_kg": {"min": 35, "max": 75}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 4}
+ },
+ {
+  "id": "rpp", "name": "Recycled polypropylene (rPP)", "family": "recycled",
+  "processes": ["fdm", "injection"],
+  "notes": "Recycled PP filament or pellets: very light and low footprint but soft.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, recycled-content filament; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 900, "max": 940},
+   "youngs_modulus_GPa": {"min": 0.8, "max": 1.4},
+   "tensile_strength_MPa": {"min": 18, "max": 30},
+   "max_service_temp_C": {"min": 85, "max": 100},
+   "cost_usd_per_kg": {"min": 15, "max": 35},
+   "embodied_energy_MJ_per_kg": {"min": 15, "max": 40}
+  },
+  "scores": {"impact_resistance": 3, "recyclability": 4}
+ },
+ {
+  "id": "rpla", "name": "Recycled PLA (rPLA)", "family": "recycled",
+  "processes": ["fdm", "injection"],
+  "notes": "PLA reclaimed from failed prints and offcuts; like virgin PLA with some loss of strength.",
+  "property_basis": "Printed specimens, XY (in-plane) orientation, recycled-content filament; cost is filament price per kg.",
+  "data_status": "typical-value-needs-verification",
+  "properties": {
+   "density_kg_m3": {"min": 1240, "max": 1280},
+   "youngs_modulus_GPa": {"min": 2.2, "max": 3.4},
+   "tensile_strength_MPa": {"min": 35, "max": 55},
+   "max_service_temp_C": {"min": 50, "max": 58},
+   "cost_usd_per_kg": {"min": 18, "max": 32},
+   "embodied_energy_MJ_per_kg": {"min": 25, "max": 45}
+  },
+  "scores": {"impact_resistance": 1, "recyclability": 3}
+ }
+ ]
+}

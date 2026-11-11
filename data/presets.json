@@ -1,0 +1,98 @@
+{
+ "schema_version": 1,
+ "criteria": [
+  {"key": "performance_index", "label": "Performance index", "direction": "benefit", "plain": "How much strength or stiffness you get per kilogram for this part's load case (an Ashby index). Higher is better."},
+  {"key": "impact_resistance", "label": "Impact resistance", "direction": "benefit", "plain": "How well the material survives crashes and hard landings without cracking (score 1 to 5). Higher is better."},
+  {"key": "max_service_temp", "label": "Max service temperature", "direction": "benefit", "plain": "The hottest it can safely run, for example near motors or batteries or in a car in the sun. Higher is better."},
+  {"key": "cost", "label": "Cost", "direction": "cost", "plain": "Material price per kilogram. Lower is better."},
+  {"key": "embodied_energy", "label": "Embodied energy", "direction": "cost", "plain": "Energy used to make a kilogram of the material, a proxy for its environmental footprint. Lower is better."},
+  {"key": "recyclability", "label": "Recyclability", "direction": "benefit", "plain": "How easily the material can be recycled at end of life (score 1 to 5). Higher is better."}
+ ],
+ "indices": {
+  "beam_stiffness": {"label": "Beam stiffness", "formula": "E^(1/2) / rho", "plain": "Lightest beam that bends no more than a given amount (e.g. a quadcopter arm that must not flex)."},
+  "beam_strength": {"label": "Beam strength", "formula": "sigma^(2/3) / rho", "plain": "Lightest beam that carries a given bending load without breaking."},
+  "panel_stiffness": {"label": "Panel stiffness", "formula": "E^(1/3) / rho", "plain": "Lightest flat panel that bends no more than a given amount under load."},
+  "panel_strength": {"label": "Panel strength", "formula": "sigma^(1/2) / rho", "plain": "Lightest flat panel that carries a given load without breaking."},
+  "tie_stiffness": {"label": "Tie stiffness", "formula": "E / rho", "plain": "Lightest rod pulled in tension that stretches no more than a given amount."},
+  "tie_strength": {"label": "Tie strength", "formula": "sigma / rho", "plain": "Lightest rod pulled in tension that does not break."}
+ },
+ "parts": [
+  {
+   "id": "arm", "name": "Quadcopter arm",
+   "load_case": "Cantilever beam: the motor thrust bends the arm, and motor vibration excites it.",
+   "performance_index": "beam_stiffness",
+   "constraints": {"max_density_kg_m3": 2100, "min_strength_MPa": 40, "min_service_temp_C": 60, "max_cost_usd_per_kg": 400, "required_process": null},
+   "weights": {"performance_index": 0.35, "impact_resistance": 0.20, "max_service_temp": 0.10, "cost": 0.15, "embodied_energy": 0.10, "recyclability": 0.10},
+   "allowed_processes": ["fdm", "layup", "machining", "cnc-cut", "injection", "sheet-forming"],
+   "rationale": "An arm is a beam clamped at the body with the motor load at its tip. It must stay stiff so the motor does not wobble, and it should be light so the drone can carry a battery. Beam stiffness (E^1/2 / density) is the standard way to compare materials for that job. Crash toughness also matters because arms are the part that hits the ground first."
+  },
+  {
+   "id": "plate", "name": "Frame plate",
+   "load_case": "Flat plate loaded in bending between mounting points and by flight loads.",
+   "performance_index": "panel_stiffness",
+   "constraints": {"max_density_kg_m3": 2100, "min_strength_MPa": 30, "min_service_temp_C": 60, "max_cost_usd_per_kg": 400, "required_process": null},
+   "weights": {"performance_index": 0.35, "impact_resistance": 0.15, "max_service_temp": 0.10, "cost": 0.20, "embodied_energy": 0.10, "recyclability": 0.10},
+   "allowed_processes": ["fdm", "layup", "machining", "cnc-cut", "injection", "sheet-forming"],
+   "rationale": "The top and bottom plates of a frame behave like flat panels that must resist bending. Panel stiffness (E^1/3 / density) ranks materials for the lightest plate of a given stiffness. Plates are also usually cut flat, so cost and ease of cutting count."
+  },
+  {
+   "id": "propeller", "name": "Propeller",
+   "load_case": "Thin rotating blade: bending from thrust and centrifugal pull, with frequent ground strikes.",
+   "performance_index": "beam_strength",
+   "constraints": {"max_density_kg_m3": 2100, "min_strength_MPa": 40, "min_service_temp_C": 60, "max_cost_usd_per_kg": 300, "required_process": null},
+   "weights": {"performance_index": 0.30, "impact_resistance": 0.30, "max_service_temp": 0.05, "cost": 0.15, "embodied_energy": 0.10, "recyclability": 0.10},
+   "allowed_processes": ["fdm", "layup", "injection", "machining"],
+   "rationale": "A propeller blade is a slender beam that bends under thrust while spinning fast, so it must be strong for its weight (beam strength, sigma^2/3 / density). Blades also strike the ground and obstacles, so impact resistance carries extra weight."
+  },
+  {
+   "id": "landing_gear", "name": "Landing gear",
+   "load_case": "Legs that flex and absorb the energy of landings; bending strength under repeated hard impacts.",
+   "performance_index": "beam_strength",
+   "constraints": {"max_density_kg_m3": 2100, "min_strength_MPa": 30, "min_service_temp_C": 50, "max_cost_usd_per_kg": 300, "required_process": null},
+   "weights": {"performance_index": 0.25, "impact_resistance": 0.35, "max_service_temp": 0.05, "cost": 0.15, "embodied_energy": 0.10, "recyclability": 0.10},
+   "allowed_processes": ["fdm", "layup", "machining", "injection", "sheet-forming", "cnc-cut"],
+   "rationale": "Landing legs act as bent beams that store and release landing energy. Strength per weight (beam strength) keeps them light, while toughness decides whether they survive hard landings, so impact resistance gets the largest weight."
+  },
+  {
+   "id": "battery_enclosure", "name": "Battery enclosure",
+   "load_case": "Thin-walled box: protects the battery from impact and heat, loaded like a small panel.",
+   "performance_index": "panel_strength",
+   "constraints": {"max_density_kg_m3": 2100, "min_strength_MPa": 20, "min_service_temp_C": 60, "max_cost_usd_per_kg": 200, "required_process": null},
+   "weights": {"performance_index": 0.20, "impact_resistance": 0.25, "max_service_temp": 0.20, "cost": 0.10, "embodied_energy": 0.10, "recyclability": 0.15},
+   "allowed_processes": ["fdm", "layup", "injection", "sheet-forming", "machining", "cnc-cut"],
+   "rationale": "An enclosure is a set of thin panels that must resist impact without breaking (panel strength, sigma^1/2 / density). Batteries heat up when discharged hard, so temperature capability is weighted more than for other parts."
+  },
+  {
+   "id": "fuselage_skin", "name": "Fuselage skin",
+   "load_case": "Thin shell that carries aerodynamic pressure and must resist buckling; every gram is carried for the whole flight.",
+   "performance_index": "panel_stiffness",
+   "constraints": {"max_density_kg_m3": 2100, "min_strength_MPa": 20, "min_service_temp_C": 60, "max_cost_usd_per_kg": 500, "required_process": null},
+   "weights": {"performance_index": 0.45, "impact_resistance": 0.10, "max_service_temp": 0.10, "cost": 0.15, "embodied_energy": 0.10, "recyclability": 0.10},
+   "allowed_processes": ["fdm", "layup", "machining", "cnc-cut", "injection", "sheet-forming"],
+   "rationale": "A skin is a thin panel whose main enemy is buckling, which is governed by stiffness. Panel stiffness (E^1/3 / density) is the standard comparison, and it is weighted highest because weight directly reduces flight time."
+  }
+ ],
+ "profiles": [
+  {"id": "balanced", "name": "Balanced", "description": "No special emphasis: uses the part's default weights unchanged.",
+   "modifiers": {"performance_index": 1.0, "impact_resistance": 1.0, "max_service_temp": 1.0, "cost": 1.0, "embodied_energy": 1.0, "recyclability": 1.0}},
+  {"id": "endurance", "name": "Long endurance", "description": "Every gram costs flight time, so performance per kilogram is doubled in importance and cost matters less.",
+   "modifiers": {"performance_index": 2.0, "impact_resistance": 0.8, "max_service_temp": 1.0, "cost": 0.6, "embodied_energy": 0.7, "recyclability": 0.6}},
+  {"id": "impact-tolerant", "name": "Impact tolerant", "description": "For crash-prone flying such as FPV or training: toughness is weighted 2.5 times more than normal.",
+   "modifiers": {"performance_index": 0.9, "impact_resistance": 2.5, "max_service_temp": 1.0, "cost": 1.0, "embodied_energy": 0.8, "recyclability": 0.8}},
+  {"id": "budget", "name": "Budget", "description": "Keep material cost low: cost is weighted 2.5 times more than normal.",
+   "modifiers": {"performance_index": 0.9, "impact_resistance": 1.0, "max_service_temp": 0.8, "cost": 2.5, "embodied_energy": 0.8, "recyclability": 0.8}},
+  {"id": "eco", "name": "Eco-friendly", "description": "Lower environmental footprint: embodied energy and recyclability are each weighted about 2.2 times more than normal.",
+   "modifiers": {"performance_index": 0.9, "impact_resistance": 0.9, "max_service_temp": 0.8, "cost": 0.8, "embodied_energy": 2.2, "recyclability": 2.2}}
+ ],
+ "scenarios": [
+  {"id": "fpv-arm", "name": "5-inch FPV quad arm", "part": "arm", "profile": "impact-tolerant",
+   "constraint_overrides": {"min_service_temp_C": 70, "max_density_kg_m3": 2000},
+   "description": "A racing-style quadcopter arm that must stay stiff, shrug off crashes and survive warm motors."},
+  {"id": "endurance-skin", "name": "Long-endurance fixed-wing fuselage skin", "part": "fuselage_skin", "profile": "endurance",
+   "constraint_overrides": {"max_density_kg_m3": 2000},
+   "description": "A thin fuselage shell where saving weight extends flight time, so lightness dominates."},
+  {"id": "eco-battery-box", "name": "Eco-friendly 3D-printed battery enclosure", "part": "battery_enclosure", "profile": "eco",
+   "constraint_overrides": {"required_process": "fdm", "min_service_temp_C": 60},
+   "description": "A printable battery box that must tolerate warm cells while keeping the environmental footprint low."}
+ ]
+}
