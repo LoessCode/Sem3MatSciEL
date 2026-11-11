@@ -44,7 +44,7 @@ def test_readme_documents_every_endpoint():
 
 def test_no_todo_or_placeholder_text_in_repo():
     bad = re.compile(r"\b(TODO|FIXME|TBD|lorem ipsum|XXX)\b", re.I)
-    skip = {"node_modules", "dist", ".git", "__pycache__", ".pytest_cache", "package-lock.json"}
+    skip = {"node_modules", "dist", ".git", ".venv", "venv", "__pycache__", ".pytest_cache", "package-lock.json"}
     for p in ROOT.rglob("*"):
         if not p.is_file() or set(p.relative_to(ROOT).parts) & skip or p.suffix in {".png", ".pdf", ".svg", ".pyc"}:
             continue
