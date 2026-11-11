@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "airframeselect"
+version = "1.0.0"
+description = "Decision framework for material selection in drone airframes"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "fastapi>=0.110",
+  "pydantic>=2.5",
+  "uvicorn>=0.27",
+  "reportlab>=4.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.26"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../scripts"]
