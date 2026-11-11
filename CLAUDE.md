@@ -40,7 +40,7 @@ Novelty (always worded "to our knowledge"): a free, open-source, UAV-component-s
 - [x] Phase 0 scaffold + CLAUDE.md
 - [x] Phase 1 data + validator
 - [x] Phase 2 engine + tests
-- [ ] Phase 3 API + tests
+- [x] Phase 3 API + tests
 - [ ] Phase 4 frontend selector + results
 - [ ] Phase 5 Ashby chart, compare view, methodology page
 - [ ] Phase 6 exports (CSV, PDF)
