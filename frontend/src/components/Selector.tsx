@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Caption } from "../presenter";
 import { CRITERIA, type Constraints, type CriterionKey, type Presets, type Query } from "../types";
 import { CRITERION_COLORS, PROCESS_LABELS } from "../theme";
+import { api } from "../api";
+import type { ParsedRequirement } from "../types";
 import { Tooltip } from "./ui";
 
 export function defaultWeights(presets: Presets, partId: string, profileId: string): Record<CriterionKey, number> {
@@ -37,6 +39,9 @@ interface Props {
 
 export function Selector({ presets, query, setQuery, onRun, onScenario, running, dirty }: Props) {
   const [step, setStep] = useState(0);
+  const [text, setText] = useState("");
+  const [parsed, setParsed] = useState<ParsedRequirement | null>(null);
+  const [parseError, setParseError] = useState<string | null>(null);
   const part = presets.parts.find((p) => p.id === query.part)!;
   const profile = presets.profiles.find((p) => p.id === query.profile)!;
   const totalW = CRITERIA.reduce((s, c) => s + query.weights[c], 0);
@@ -46,6 +51,21 @@ export function Selector({ presets, query, setQuery, onRun, onScenario, running,
     setQuery({ ...query, profile: id, weights: defaultWeights(presets, query.part, id) });
   const setCons = (k: keyof Constraints, v: number | string | null) =>
     setQuery({ ...query, constraints: { ...query.constraints, [k]: v } });
+
+  const applyText = async () => {
+    setParseError(null);
+    try {
+      const r = await api.parse(text);
+      setParsed(r);
+      const partId = r.part ?? query.part;
+      const profileId = r.profile ?? query.profile;
+      if (r.part || r.profile || Object.keys(r.constraints).length) {
+        setQuery(makeQuery(presets, partId, profileId, r.constraints));
+      }
+    } catch (e) {
+      setParseError((e as Error).message);
+    }
+  };
 
   const numField = (k: Exclude<keyof Constraints, "required_process">, label: string, unit: string, help: string) => (
     <label className="block text-sm">
@@ -66,6 +86,26 @@ export function Selector({ presets, query, setQuery, onRun, onScenario, running,
     <section className="panel" aria-labelledby="selector-title">
       <h2 id="selector-title" className="panel-title">Choose your inputs</h2>
       <Caption>Four quick choices describe the part and what matters; then we rank 47 materials and say how sure we are.</Caption>
+
+      <details className="mt-3 rounded-lg border border-slate-200 p-2">
+        <summary className="cursor-pointer text-sm font-semibold text-navy-800">Or describe it in words</summary>
+        <Caption>A simple keyword reader (no AI) fills in the form and shows which words it used.</Caption>
+        <label htmlFor="req-text" className="mt-2 block text-xs text-slate-600">For example: &quot;cheap 3D printed battery box that survives 70 C&quot;</label>
+        <textarea id="req-text" rows={2} maxLength={1000} className="field mt-1" value={text} onChange={(e) => setText(e.target.value)} />
+        <button className="btn-secondary mt-2" onClick={applyText} disabled={!text.trim()}>Fill the form</button>
+        {parseError && <p role="alert" className="mt-1 text-xs text-red-700">{parseError}</p>}
+        {parsed && (
+          <div className="mt-2 text-xs" aria-live="polite">
+            {parsed.matches.length > 0 && (
+              <ul className="list-disc pl-5 text-slate-700">
+                {parsed.matches.map((m) => <li key={m.field}><strong>{m.field}</strong> = {String(m.value)} ({m.because})</li>)}
+              </ul>
+            )}
+            {parsed.notes.map((n) => <p key={n} className="text-amber-900">{n}</p>)}
+            {parsed.matches.length > 0 && <p className="mt-1 text-slate-600">Form updated. Check the steps below, then press Run.</p>}
+          </div>
+        )}
+      </details>
 
       <div className="mt-3">
         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">One-click demos</p>

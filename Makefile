@@ -7,9 +7,8 @@ setup:
 	cd frontend && npm install
 
 dev:
-	@echo "Backend on :8000, frontend on :5173"
-	$(PY) -m uvicorn airframeselect.api:app --port 8000 --reload & \
-	cd frontend && npm run dev; kill %1 2>/dev/null || true
+	@echo "Backend on http://localhost:8000 (API docs at /api/docs), frontend on http://localhost:5173"
+	@bash -c 'trap "kill 0" EXIT; $(PY) -m uvicorn airframeselect.api:app --port 8000 --reload --reload-dir backend/src & (cd frontend && npm run dev) & wait'
 
 test:
 	cd backend && $(PY) -m pytest -q

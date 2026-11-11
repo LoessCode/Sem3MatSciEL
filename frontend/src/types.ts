@@ -104,3 +104,14 @@ export interface Query {
   weights: Record<CriterionKey, number>; // raw slider values 0..100
   constraints: Constraints;
 }
+
+export interface ParetoPoint { id: string; name: string; family: string; rank: number; x: number; y: number; pareto: boolean; dominated_by: string | null }
+export interface ParetoResult {
+  x: { key: CriterionKey; label: string; direction: "benefit" | "cost" };
+  y: { key: CriterionKey; label: string; direction: "benefit" | "cost" };
+  points: ParetoPoint[]; front_ids: string[]; message: string | null;
+}
+export interface ParsedRequirement {
+  part: string | null; profile: string | null; constraints: Partial<Constraints>;
+  matches: { field: string; value: string | number; because: string }[]; notes: string[];
+}

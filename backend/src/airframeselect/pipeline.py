@@ -12,6 +12,7 @@ from .data import (
     BENEFIT, CRITERIA, PROP_COL, PROPS, MaterialSet, all_materials, get_part, get_profile, load_presets,
 )
 from .explain import contributions, explain_material
+from .pareto import criteria_columns, pareto_front
 from .mcdm import method_agreement, normalise_weights, ranks_from_scores, topsis, weighted_sum
 from .robustness import criteria_from_raw, run_monte_carlo
 
@@ -297,3 +298,43 @@ def run_ashby(
         "top_ids": [r["id"] for r in base["ranking"][:top_n]],
         "message": base["message"],
     }
+
+
+def run_pareto(
+    part_id: str,
+    profile_id: str = "balanced",
+    weights: dict[str, float] | None = None,
+    constraints: dict[str, Any] | None = None,
+    method: str = "topsis",
+    x_criterion: str = "cost",
+    y_criterion: str = "performance_index",
+) -> dict[str, Any]:
+    """Pareto front of the feasible candidates over two chosen criteria."""
+    for c in (x_criterion, y_criterion):
+        if c not in CRITERIA:
+            raise InputError(f"unknown criterion '{c}' (choose from {', '.join(CRITERIA)})")
+    if x_criterion == y_criterion:
+        raise InputError("choose two different criteria")
+    base = run_ranking(part_id, profile_id, weights, constraints, method)
+    meta = {c["key"]: c for c in load_presets()["criteria"]}
+    out: dict[str, Any] = {
+        "x": {"key": x_criterion, "label": meta[x_criterion]["label"], "direction": meta[x_criterion]["direction"]},
+        "y": {"key": y_criterion, "label": meta[y_criterion]["label"], "direction": meta[y_criterion]["direction"]},
+        "points": [], "front_ids": [], "message": base["message"],
+    }
+    if not base["ranking"]:
+        return out
+    ms = all_materials()
+    sub = ms.subset([ms.index_of(r["id"]) for r in base["ranking"]])
+    X = criteria_from_raw(base["inputs"]["performance_index"]["id"], sub.mid, sub.impact, sub.recyc)
+    cols = criteria_columns([x_criterion, y_criterion])
+    front, dom = pareto_front(X, cols)
+    for i, r in enumerate(base["ranking"]):
+        out["points"].append({
+            "id": r["id"], "name": r["name"], "family": r["family"], "rank": r["rank"],
+            "x": float(X[i, cols[0]]), "y": float(X[i, cols[1]]),
+            "pareto": bool(front[i]),
+            "dominated_by": base["ranking"][dom[i]]["name"] if dom[i] is not None else None,
+        })
+    out["front_ids"] = [p["id"] for p in out["points"] if p["pareto"]]
+    return out

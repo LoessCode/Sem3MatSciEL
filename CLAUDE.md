@@ -12,7 +12,7 @@ Novelty (always worded "to our knowledge"): a free, open-source, UAV-component-s
 
 ## Architecture
 - `backend/src/airframeselect/` — pure-Python engine (numpy only; no web deps). Modules: data loading, ashby,
-  constraints, mcdm, robustness, explain, compare, pipeline, exports (csv/pdf), cli.
+  constraints, mcdm, robustness, explain, compare, pipeline, exports (csv/pdf), pareto, parser (rule-based), cli.
 - `backend/src/airframeselect/api.py` — thin FastAPI layer (Pydantic v2).
 - `backend/tests/` — pytest.
 - `frontend/` — React + TypeScript + Vite + Tailwind + Recharts. Vite dev proxy `/api` -> :8000.
@@ -27,6 +27,7 @@ Novelty (always worded "to our knowledge"): a free, open-source, UAV-component-s
 - `make build` — build frontend into frontend/dist
 - `make demo` — one process on :8000 serving built UI + API
 - `make smoke` — scripts/smoke.py
+- `python scripts/make_validation_report.py` -> docs/VALIDATION.md; `python scripts/make_data_verification.py` -> docs/DATA_VERIFICATION.md
 - CLI: `python -m airframeselect rank --part arm --profile balanced`
 
 ## Conventions
@@ -44,6 +45,11 @@ Novelty (always worded "to our knowledge"): a free, open-source, UAV-component-s
 - [x] Phase 4 frontend selector + results
 - [x] Phase 5 Ashby chart, compare view, methodology page
 - [x] Phase 6 exports (CSV, PDF)
-- [ ] Phase 7 docs + validation report
-- [ ] Phase 8 polish, accessibility, Dockerfile, smoke script
-- [ ] Phase 9 requirement parser + Pareto view
+- [x] Phase 7 docs + validation report
+- [x] Phase 8 polish, accessibility, Dockerfile, smoke script
+- [x] Phase 9 requirement parser + Pareto view
+
+## Status
+All phases complete. Backend: 98 pytest tests; frontend typechecks and builds; `make smoke` exits 0.
+Extra endpoints beyond the brief: POST /api/pareto, POST /api/parse.
+Outstanding for the human: spot-check data values (docs/DATA_VERIFICATION.md).

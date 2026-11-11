@@ -1,5 +1,5 @@
 import type {
-  AshbyResult, CompareResult, MaterialsDoc, Presets, Query, RankResult, RobResult,
+  AshbyResult, CompareResult, MaterialsDoc, ParetoResult, ParsedRequirement, Presets, Query, RankResult, RobResult,
 } from "./types";
 
 export class ApiError extends Error {}
@@ -50,6 +50,8 @@ export const api = {
   rank: (q: Query) => post<RankResult>("/api/rank", toRequest(q)),
   robustness: (q: Query) => post<RobResult>("/api/robustness", toRequest(q)),
   ashby: (q: Query, axes: string, topN: number) => post<AshbyResult>("/api/ashby", { ...toRequest(q), axes, top_n: topN }),
+  pareto: (q: Query, x: string, y: string) => post<ParetoResult>("/api/pareto", { ...toRequest(q), x_criterion: x, y_criterion: y }),
+  parse: (text: string) => post<ParsedRequirement>("/api/parse", { text }),
   compare: (ids: string[], part: string) => post<CompareResult>("/api/compare", { material_ids: ids, part }),
   async download(kind: "csv" | "pdf", q: Query): Promise<void> {
     let res: Response;

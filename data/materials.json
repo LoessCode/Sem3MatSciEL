@@ -544,7 +544,7 @@
    "density_kg_m3": {"min": 100, "max": 200},
    "youngs_modulus_GPa": {"min": 2.0, "max": 5.0},
    "tensile_strength_MPa": {"min": 8, "max": 22},
-   "max_service_temp_C": {"min": 70, "max": 100},
+   "max_service_temp_C": {"min": 60, "max": 80},
    "cost_usd_per_kg": {"min": 15, "max": 50},
    "embodied_energy_MJ_per_kg": {"min": 4, "max": 12}
   },
@@ -561,7 +561,7 @@
    "density_kg_m3": {"min": 600, "max": 720},
    "youngs_modulus_GPa": {"min": 8, "max": 13},
    "tensile_strength_MPa": {"min": 30, "max": 60},
-   "max_service_temp_C": {"min": 70, "max": 100},
+   "max_service_temp_C": {"min": 60, "max": 80},
    "cost_usd_per_kg": {"min": 3, "max": 12},
    "embodied_energy_MJ_per_kg": {"min": 8, "max": 18}
   },
@@ -578,7 +578,7 @@
    "density_kg_m3": {"min": 600, "max": 750},
    "youngs_modulus_GPa": {"min": 9, "max": 16},
    "tensile_strength_MPa": {"min": 60, "max": 130},
-   "max_service_temp_C": {"min": 70, "max": 100},
+   "max_service_temp_C": {"min": 60, "max": 80},
    "cost_usd_per_kg": {"min": 3, "max": 10},
    "embodied_energy_MJ_per_kg": {"min": 4, "max": 14}
   },

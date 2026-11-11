@@ -15,8 +15,9 @@ from . import __version__
 from .data import data_dir, load_materials_doc, load_presets
 from .exporting import build_csv, build_pdf
 from .pipeline import (
-    InputError, run_ashby, run_compare, run_ranking, run_robustness,
+    InputError, run_ashby, run_compare, run_pareto, run_ranking, run_robustness,
 )
+from .parser import parse_requirement
 
 Weight = Annotated[float, Field(ge=0, le=1e6, allow_inf_nan=False)]
 
@@ -89,6 +90,16 @@ class AshbyRequest(RankRequest):
     top_n: int = Field(5, ge=0, le=50)
 
 
+class ParetoRequest(RankRequest):
+    x_criterion: Literal["performance_index", "impact_resistance", "max_service_temp", "cost", "embodied_energy", "recyclability"] = "cost"
+    y_criterion: Literal["performance_index", "impact_resistance", "max_service_temp", "cost", "embodied_energy", "recyclability"] = "performance_index"
+
+
+class ParseRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    text: str = Field(..., max_length=1000)
+
+
 @app.exception_handler(InputError)
 async def input_error_handler(_: Request, exc: InputError) -> JSONResponse:
     return JSONResponse(status_code=422, content={"detail": str(exc)})
@@ -127,6 +138,17 @@ def compare(req: CompareRequest) -> dict[str, Any]:
 @app.post("/api/ashby", tags=["analysis"])
 def ashby(req: AshbyRequest) -> dict[str, Any]:
     return run_ashby(**req.engine_kwargs(), axes=req.axes, top_n=req.top_n)
+
+
+@app.post("/api/pareto", tags=["analysis"])
+def pareto(req: ParetoRequest) -> dict[str, Any]:
+    return run_pareto(**req.engine_kwargs(), x_criterion=req.x_criterion, y_criterion=req.y_criterion)
+
+
+@app.post("/api/parse", tags=["analysis"])
+def parse(req: ParseRequest) -> dict[str, Any]:
+    """Rule-based (non-LLM) reading of a plain-English requirement into form fields."""
+    return parse_requirement(req.text)
 
 
 @app.post("/api/export/csv", tags=["export"])

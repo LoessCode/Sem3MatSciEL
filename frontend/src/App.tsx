@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "./api";
 import { AshbyView } from "./components/AshbyView";
 import { CompareView } from "./components/CompareView";
+import { ParetoView } from "./components/ParetoView";
 import { Methodology } from "./components/Methodology";
 import { Results } from "./components/Results";
 import { makeQuery, Selector } from "./components/Selector";
@@ -9,10 +10,11 @@ import { ErrorBox, Spinner } from "./components/ui";
 import { PresenterContext, Caption } from "./presenter";
 import type { Method, Presets, Query, RankResult, RobResult } from "./types";
 
-type Tab = "analyse" | "ashby" | "compare" | "method";
+type Tab = "analyse" | "ashby" | "pareto" | "compare" | "method";
 const TABS: { id: Tab; label: string }[] = [
   { id: "analyse", label: "Recommend" },
   { id: "ashby", label: "Ashby chart" },
+  { id: "pareto", label: "Pareto front" },
   { id: "compare", label: "Compare" },
   { id: "method", label: "Methodology" },
 ];
@@ -161,6 +163,13 @@ export default function App() {
                 <h2 className="text-lg font-bold text-navy-800">Ashby chart</h2>
                 <Caption>A map of every material by weight and strength or stiffness: up and to the left is lighter for the same performance.</Caption>
                 <AshbyView query={ranQuery ?? query} />
+              </section>
+            )}
+            {tab === "pareto" && (
+              <section>
+                <h2 className="text-lg font-bold text-navy-800">Pareto front</h2>
+                <Caption>Shows which materials are never beaten on both of two chosen factors, so you can see the real trade-offs.</Caption>
+                <ParetoView query={ranQuery ?? query} />
               </section>
             )}
             {tab === "compare" && (
