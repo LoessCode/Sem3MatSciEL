@@ -13,3 +13,4 @@
 11. **Requirement parser is keyword-based.** It understands a fixed vocabulary and number-plus-unit patterns; it is not natural-language understanding and always shows which words it used.
 12. **Single-user, local tool.** No authentication, persistence or multi-user features; the Monte Carlo seed is configurable but the UI uses 42.
 13. **Browser support** was checked with a current Chromium only.
+14. **Dockerfile not built in the authoring environment** (no Docker daemon was available). It repeats the steps that `make setup`, `make build` and `make demo` run and that were verified from a fresh clone; build it once with `docker build -t airframeselect .` to confirm.
